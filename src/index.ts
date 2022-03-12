@@ -50,6 +50,11 @@ function onActivityRecognition(activityType: string, confidence: number) {
     return;
   }
 
+  if (env.data.CURRENT_PAGE === 'Submit') {
+    platform.log('should auto logout but is in submit view');
+    return;
+  }
+
   const rules = conf.get('activities', []);
   for (const rule of rules) {
     if (rule.activity === activityType && confidence >= rule.confidence) {
@@ -82,6 +87,11 @@ function onMonoflowIO(rule: number, status: boolean) {
   }
 
   if (!env.project?.currentLogin.maybeCurrent) {
+    return;
+  }
+
+  if (env.data.CURRENT_PAGE === 'Submit') {
+    platform.log('should auto logout but is in submit view');
     return;
   }
 
