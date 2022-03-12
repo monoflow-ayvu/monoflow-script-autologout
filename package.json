@@ -6,20 +6,181 @@
     "display": "form",
     "components": [
       {
-        "label": "Nome",
-        "description": "Nome para saludar",
-        "tableView": true,
-        "key": "nome",
-        "type": "textfield",
+        "label": "Ativar logout baseado em atividade?",
+        "tableView": false,
+        "key": "enableActivityLogout",
+        "type": "checkbox",
         "input": true,
-        "defaultValue": "User"
+        "defaultValue": false
+      },
+      {
+        "label": "Atividades",
+        "reorder": false,
+        "addAnotherPosition": "bottom",
+        "layoutFixed": false,
+        "enableRowGroups": false,
+        "initEmpty": false,
+        "tableView": false,
+        "defaultValue": [
+          {
+            "atividade": "STILL",
+            "confidence": ""
+          }
+        ],
+        "key": "activities",
+        "conditional": {
+          "show": true,
+          "when": "enableActivityLogout",
+          "eq": "true"
+        },
+        "type": "datagrid",
+        "input": true,
+        "components": [
+          {
+            "label": "Atividade",
+            "widget": "choicesjs",
+            "tableView": true,
+            "defaultValue": "STILL",
+            "data": {
+              "values": [
+                {
+                  "label": "IN_VEHICLE",
+                  "value": "IN_VEHICLE"
+                },
+                {
+                  "label": "ON_BICYCLE",
+                  "value": "ON_BICYCLE"
+                },
+                {
+                  "label": "ON_FOOT",
+                  "value": "ON_FOOT"
+                },
+                {
+                  "label": "RUNNING",
+                  "value": "RUNNING"
+                },
+                {
+                  "label": "STILL",
+                  "value": "STILL"
+                },
+                {
+                  "label": "TILTING",
+                  "value": "TILTING"
+                },
+                {
+                  "label": "UNKNOWN",
+                  "value": "UNKNOWN"
+                },
+                {
+                  "label": "WALKING",
+                  "value": "WALKING"
+                }
+              ]
+            },
+            "validate": {
+              "required": true
+            },
+            "key": "activity",
+            "type": "select",
+            "input": true
+          },
+          {
+            "label": "Nível Certeza",
+            "placeholder": "0-100%",
+            "mask": false,
+            "tableView": false,
+            "delimiter": false,
+            "decimalLimit": 0,
+            "requireDecimal": false,
+            "inputFormat": "plain",
+            "truncateMultipleSpaces": false,
+            "validate": {
+              "required": true,
+              "min": 0,
+              "max": 100
+            },
+            "key": "confidence",
+            "type": "number",
+            "input": true
+          }
+        ]
+      },
+      {
+        "label": "Ativar logout baseado em regra monoflow?",
+        "tableView": false,
+        "key": "enableMonoflowLogout",
+        "type": "checkbox",
+        "input": true,
+        "defaultValue": false
+      },
+      {
+        "label": "Regras Monoflow",
+        "reorder": false,
+        "addAnotherPosition": "bottom",
+        "layoutFixed": false,
+        "enableRowGroups": false,
+        "initEmpty": false,
+        "tableView": false,
+        "defaultValue": [
+          {}
+        ],
+        "key": "monoflowRules",
+        "conditional": {
+          "show": true,
+          "when": "enableMonoflowLogout",
+          "eq": "true"
+        },
+        "type": "datagrid",
+        "input": true,
+        "components": [
+          {
+            "label": "Regra",
+            "mask": false,
+            "tableView": false,
+            "delimiter": false,
+            "decimalLimit": 0,
+            "requireDecimal": false,
+            "inputFormat": "plain",
+            "truncateMultipleSpaces": false,
+            "validate": {
+              "required": true,
+              "min": 0,
+              "max": 29
+            },
+            "key": "rule",
+            "type": "number",
+            "input": true
+          },
+          {
+            "label": "Estado",
+            "widget": "choicesjs",
+            "tableView": true,
+            "data": {
+              "values": [
+                {
+                  "label": "Ativa",
+                  "value": "enabled"
+                },
+                {
+                  "label": "Inativa",
+                  "value": "disabled"
+                }
+              ]
+            },
+            "validate": {
+              "required": true
+            },
+            "key": "state",
+            "type": "select",
+            "input": true
+          }
+        ]
       },
       {
         "type": "button",
         "label": "Submit",
         "key": "submit",
         "disableOnInvalid": true,
-        "block": true,
         "input": true,
         "tableView": false
       }
