@@ -28,7 +28,7 @@ class ActivityRecognitionEvent extends MonoUtils.wk.event.BaseEvent {
     super();
   }
 
-  getData(): {kind: string; data: unknown} {
+  getData(): {kind: string; data: {activityType: string; confidence: number}} {
     return {
       kind: this.kind,
       data: {
@@ -40,11 +40,13 @@ class ActivityRecognitionEvent extends MonoUtils.wk.event.BaseEvent {
 }
 
 function onActivityRecognition(activityType: string, confidence: number) {
+  platform.log(`onActivityRecognition ${activityType}=${confidence}%`);
+
   if (!conf.get('enableActivityLogout', false)) {
     return;
   }
 
-  if (!env.isLoggedIn) {
+  if (!env.project?.currentLogin.maybeCurrent) {
     return;
   }
 
@@ -79,7 +81,7 @@ function onMonoflowIO(rule: number, status: boolean) {
     return;
   }
 
-  if (!env.isLoggedIn) {
+  if (!env.project?.currentLogin.maybeCurrent) {
     return;
   }
 
@@ -100,7 +102,7 @@ messages.on('onInit', function() {
   if (conf.get('enableActivityLogout', false)) {
     platform.log('activity logout enabled');
     MonoUtils.wk.event.subscribe<ActivityRecognitionEvent>('activity-recognition', (ev) => {
-      onActivityRecognition(ev.activityType, ev.confidence);
+      onActivityRecognition(ev.getData()?.data?.activityType, ev.getData()?.data?.confidence);
     });
   }
 
