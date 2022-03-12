@@ -1,7 +1,7 @@
 {
-  "name": "monoflow-script-env",
-  "version": "1.17.0",
-  "description": "Script padrão de todos os scripts. Template para criar um script.",
+  "name": "autologout",
+  "version": "0.0.1",
+  "description": "Script para deslogar automaticamente, baseado no estado do IO ou na atividade do usuario.",
   "settingsSchema": {
     "display": "form",
     "components": [
