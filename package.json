@@ -186,7 +186,7 @@
       }
     ]
   },
-  "license": "EULA",
+  "license": "MIT",
   "private": true,
   "scripts": {
     "build": "webpack --mode production",
@@ -197,7 +197,7 @@
     "deploy-force": "node .scripts/deploy.js --force",
     "minor": "npm run build && bump minor --commit --tag --push --all",
     "release": "npm run build && bump major --commit --tag --push --all",
-    "test": "jest --silent"
+    "test": "jest"
   },
   "browserslist": [
     "ie 6"
@@ -245,5 +245,22 @@
     "firebase": "9.6.8",
     "lodash": "4.17.21",
     "mobx": "6.4.2"
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "web.js",
+      "js",
+      "web.ts",
+      "ts",
+      "web.tsx",
+      "tsx",
+      "json",
+      "web.jsx",
+      "jsx",
+      "node"
+    ],
+    "setupFilesAfterEnv": [
+      "<rootDir>/private/jest/setup.ts"
+    ]
   }
 }

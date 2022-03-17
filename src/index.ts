@@ -65,8 +65,8 @@ function onActivityRecognition(activityType: string, confidence: number) {
   }
 }
 
-class MonoflowIOEvent extends MonoUtils.wk.event.BaseEvent {
-  kind: 'generic';
+export class MonoflowIOEvent extends MonoUtils.wk.event.BaseEvent {
+  kind = 'generic' as const;
   getData() {
     return {
       type: 'monoflow-io' as const,
