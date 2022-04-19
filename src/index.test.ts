@@ -48,10 +48,15 @@ class MonoflowIOEvent extends MonoUtils.wk.event.BaseEvent {
   };
 }
 
+jest.useFakeTimers('modern');
 describe("onInit", () => {
   // clean listeners
   afterEach(() => {
     messages.removeAllListeners();
+  });
+
+  beforeEach(() => {
+    jest.setSystemTime(0);
   });
 
   it('runs without errors', () => {
@@ -78,24 +83,36 @@ describe("onInit", () => {
     messages.emit('onInit');
 
     // should not trigger logout
+    messages.emit('onPeriodic');
     messages.emit('onEvent', new ActivityRecognitionEvent(
       'IN_VEHICLE',
       99,
     ));
+    messages.emit('onPeriodic');
+    jest.setSystemTime(99999999);
+    messages.emit('onPeriodic');
     expect(env.project.logout).not.toHaveBeenCalled();
 
     // should not trigger logout
+    jest.setSystemTime(0);
+    messages.emit('onPeriodic');
     messages.emit('onEvent', new ActivityRecognitionEvent(
       'STILL',
       99,
     ));
+    jest.setSystemTime(99999999);
+    messages.emit('onPeriodic');
     expect(env.project.logout).not.toHaveBeenCalled();
 
     // should trigger logout
+    jest.setSystemTime(0);
+    messages.emit('onPeriodic');
     messages.emit('onEvent', new ActivityRecognitionEvent(
       'STILL',
       100,
     ));
+    jest.setSystemTime(99999999);
+    messages.emit('onPeriodic');
     expect(env.project.logout).toHaveBeenCalledTimes(1);
   });
   
@@ -165,45 +182,69 @@ describe("onInit", () => {
     env.setData('CURRENT_PAGE', 'Submit');
 
     // should not trigger logout
+    messages.emit('onPeriodic');
     messages.emit('onEvent', new ActivityRecognitionEvent(
       'IN_VEHICLE',
       99,
     ));
+    messages.emit('onPeriodic');
+    jest.setSystemTime(99999999);
+    messages.emit('onPeriodic');
     expect(env.project.logout).not.toHaveBeenCalled();
 
     // should not trigger logout
+    jest.setSystemTime(0);
+    messages.emit('onPeriodic');
     messages.emit('onEvent', new ActivityRecognitionEvent(
       'STILL',
       99,
     ));
+    jest.setSystemTime(99999999);
+    messages.emit('onPeriodic');
     expect(env.project.logout).not.toHaveBeenCalled();
 
     // should trigger logout
+    jest.setSystemTime(0);
+    messages.emit('onPeriodic');
     messages.emit('onEvent', new ActivityRecognitionEvent(
       'STILL',
       100,
     ));
+    jest.setSystemTime(99999999);
+    messages.emit('onPeriodic');
     expect(env.project.logout).not.toHaveBeenCalled();
 
     // should not trigger logout
+    jest.setSystemTime(0);
+    messages.emit('onPeriodic');
     messages.emit('onEvent', new MonoflowIOEvent(
       2,
       true,
     ));
+    jest.setSystemTime(99999999);
+    messages.emit('onPeriodic');
     expect(env.project.logout).not.toHaveBeenCalled();
 
     // should not trigger logout
+    jest.setSystemTime(0);
+    messages.emit('onPeriodic');
     messages.emit('onEvent', new MonoflowIOEvent(
       0,
       false,
     ));
+    jest.setSystemTime(99999999);
+    messages.emit('onPeriodic');
     expect(env.project.logout).not.toHaveBeenCalled();
 
     // should trigger logout
+    jest.setSystemTime(0);
+    messages.emit('onPeriodic');
     messages.emit('onEvent', new MonoflowIOEvent(
       0,
       true,
     ));
+    jest.setSystemTime(99999999);
+    messages.emit('onPeriodic');
     expect(env.project.logout).not.toHaveBeenCalled();
   });
 });
