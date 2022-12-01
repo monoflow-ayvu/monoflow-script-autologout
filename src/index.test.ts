@@ -16,7 +16,7 @@ class ActivityRecognitionEvent extends MonoUtils.wk.event.BaseEvent {
     super();
   }
 
-  getData(): {kind: string; data: {activityType: string; confidence: number}} {
+  getData(): { kind: string; data: { activityType: string; confidence: number } } {
     return {
       kind: this.kind,
       data: {
@@ -49,35 +49,40 @@ class MonoflowIOEvent extends MonoUtils.wk.event.BaseEvent {
 }
 
 jest.useFakeTimers('modern');
-describe("onInit", () => {
-  // clean listeners
+
+describe('specialRules', () => {
   afterEach(() => {
     messages.removeAllListeners();
+    jest.setSystemTime(0);
   });
 
   beforeEach(() => {
     jest.setSystemTime(0);
   });
 
-  it('runs without errors', () => {
-    loadScript();
-    messages.emit('onInit');
-  });
-
-  it('logs out when activity is matched by config', () => {
+  it('logs out on time specialRule with customTimeLimit is provided', () => {
     getSettings = () => ({
+      minTimeForLogout: Infinity,
       enableActivityLogout: true,
       activities: [{
         activity: 'STILL',
         confidence: 100,
+      }],
+      specialRules: [{
+        tag: 'test',
+        action: 'customTimeLimit',
+        minutes: 1,
       }]
     })
-    ;(env.project as any) = {
-      logout: jest.fn(),
-      currentLogin: {
-        maybeCurrent: {},
+      ; (env.project as any) = {
+        logout: jest.fn(),
+        currentLogin: {
+          maybeCurrent: {},
+        },
+        usersManager: {
+          users: [{ $modelId: 'TEST', tags: ['test'] }]
+        }
       }
-    }
 
     loadScript();
     messages.emit('onInit');
@@ -115,7 +120,135 @@ describe("onInit", () => {
     messages.emit('onPeriodic');
     expect(env.project.logout).toHaveBeenCalledTimes(1);
   });
+
+  it('should NOT log out when specialRule=disableAutoLogout is provided', () => {
+    getSettings = () => ({
+      minTimeForLogout: 5,
+      enableActivityLogout: true,
+      activities: [{
+        activity: 'STILL',
+        confidence: 100,
+      }],
+      specialRules: [{
+        tag: 'test',
+        action: 'disableAutoLogout',
+      }]
+    })
+      ; (env.project as any) = {
+        logout: jest.fn(),
+        currentLogin: {
+          maybeCurrent: {},
+        },
+        usersManager: {
+          users: [{ $modelId: 'TEST', tags: ['test'] }]
+        }
+      }
   
+    loadScript();
+    messages.emit('onInit');
+  
+    // should not trigger logout
+    messages.emit('onPeriodic');
+    messages.emit('onEvent', new ActivityRecognitionEvent(
+      'IN_VEHICLE',
+      99,
+    ));
+    messages.emit('onPeriodic');
+    jest.setSystemTime(99999999);
+    messages.emit('onPeriodic');
+    expect(env.project.logout).not.toHaveBeenCalled();
+  
+    // should not trigger logout
+    jest.setSystemTime(0);
+    messages.emit('onPeriodic');
+    messages.emit('onEvent', new ActivityRecognitionEvent(
+      'STILL',
+      99,
+    ));
+    jest.setSystemTime(99999999);
+    messages.emit('onPeriodic');
+    expect(env.project.logout).not.toHaveBeenCalled();
+  
+    // should trigger logout
+    jest.setSystemTime(0);
+    messages.emit('onPeriodic');
+    messages.emit('onEvent', new ActivityRecognitionEvent(
+      'STILL',
+      100,
+    ));
+    jest.setSystemTime(99999999);
+    messages.emit('onPeriodic');
+    expect(env.project.logout).not.toHaveBeenCalled();
+  });
+});
+
+describe("onInit", () => {
+  // clean listeners
+  afterEach(() => {
+    messages.removeAllListeners();
+  });
+
+  beforeEach(() => {
+    jest.setSystemTime(0);
+  });
+
+  it('runs without errors', () => {
+    loadScript();
+    messages.emit('onInit');
+  });
+
+  it('logs out when activity is matched by config', () => {
+    getSettings = () => ({
+      enableActivityLogout: true,
+      activities: [{
+        activity: 'STILL',
+        confidence: 100,
+      }]
+    })
+      ; (env.project as any) = {
+        logout: jest.fn(),
+        currentLogin: {
+          maybeCurrent: {},
+        }
+      }
+
+    loadScript();
+    messages.emit('onInit');
+
+    // should not trigger logout
+    messages.emit('onPeriodic');
+    messages.emit('onEvent', new ActivityRecognitionEvent(
+      'IN_VEHICLE',
+      99,
+    ));
+    messages.emit('onPeriodic');
+    jest.setSystemTime(99999999);
+    messages.emit('onPeriodic');
+    expect(env.project.logout).not.toHaveBeenCalled();
+
+    // should not trigger logout
+    jest.setSystemTime(0);
+    messages.emit('onPeriodic');
+    messages.emit('onEvent', new ActivityRecognitionEvent(
+      'STILL',
+      99,
+    ));
+    jest.setSystemTime(99999999);
+    messages.emit('onPeriodic');
+    expect(env.project.logout).not.toHaveBeenCalled();
+
+    // should trigger logout
+    jest.setSystemTime(0);
+    messages.emit('onPeriodic');
+    messages.emit('onEvent', new ActivityRecognitionEvent(
+      'STILL',
+      100,
+    ));
+    jest.setSystemTime(99999999);
+    messages.emit('onPeriodic');
+    expect(env.project.logout).toHaveBeenCalledTimes(1);
+  });
+
   it('logs out with monoflow IO if enabled', () => {
     getSettings = () => ({
       enableMonoflowLogout: true,
@@ -124,12 +257,12 @@ describe("onInit", () => {
         state: 'enabled',
       }]
     })
-    ;(env.project as any) = {
-      logout: jest.fn(),
-      currentLogin: {
-        maybeCurrent: {},
+      ; (env.project as any) = {
+        logout: jest.fn(),
+        currentLogin: {
+          maybeCurrent: {},
+        }
       }
-    }
 
     loadScript();
     messages.emit('onInit');
@@ -169,12 +302,12 @@ describe("onInit", () => {
         state: 'enabled',
       }]
     })
-    ;(env.project as any) = {
-      logout: jest.fn(),
-      currentLogin: {
-        maybeCurrent: {},
+      ; (env.project as any) = {
+        logout: jest.fn(),
+        currentLogin: {
+          maybeCurrent: {},
+        }
       }
-    }
 
     loadScript();
     messages.emit('onInit');

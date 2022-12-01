@@ -1,4 +1,5 @@
 import * as MonoUtils from "@fermuch/monoutils";
+import { anyTagMatches } from "./utils";
 
 type Activity = {
   activity: 'IN_VEHICLE' | 'ON_BICYCLE' | 'ON_FOOT' | 'RUNNING' | 'STILL' | 'TILTING' | 'UNKNOWN' | 'WALKING';
@@ -10,6 +11,12 @@ type MonoflowRule = {
   state: 'enabled' | 'disabled';
 }
 
+type SpecialRule = {
+  tag: string;
+  action: 'customTimeLimit' | 'disableAutoLogout';
+  minutes?: number;
+}
+
 // based on settingsSchema @ package.json
 type Config = Record<string, unknown> & {
   enableActivityLogout: boolean;
@@ -17,6 +24,8 @@ type Config = Record<string, unknown> & {
 
   enableMonoflowLogout: boolean;
   monoflowRules: MonoflowRule[];
+
+  specialRules: SpecialRule[];
 
   minTimeForLogout: number;
 }
@@ -97,15 +106,35 @@ function onMonoflowIO(rule: number, status: boolean) {
     const ruleStatus = r.state === 'enabled' ? true : false;
     if (r.rule === Math.floor(rule) && ruleStatus === status) {
       platform.log('logging out due to monoflow IO', rule, status);
-      env.project?.logout();
+      logout();
       return;
     }
   }
 }
 
+function getMinutesToLogout(): number {
+  const _default = conf.get('minTimeForLogout', 1); // in minutes
+
+  for (const rule of conf.get('specialRules', [])) {
+    if (rule.action === 'customTimeLimit' && anyTagMatches([rule.tag])) {
+      return rule.minutes || _default;
+    }
+  }
+
+  return _default;
+}
+
+function logout() {
+  for (const rule of conf.get('specialRules', [])) {
+    if (rule.action === 'disableAutoLogout' && anyTagMatches([rule.tag])) {
+      return; // auto-logout is disabled for this user
+    }
+  }
+
+  env.project?.logout();
+}
 
 let shouldLogoutAt: number | null = null;
-
 function onActivityRecognition(activityType: string, confidence: number) {
   // platform.log(`onActivityRecognition ${activityType}=${confidence}%`);
 
@@ -120,7 +149,7 @@ function onActivityRecognition(activityType: string, confidence: number) {
   const rules = conf.get('activities', []);
   for (const rule of rules) {
     if (rule.activity === activityType && confidence >= rule.confidence && shouldLogoutAt === null) {
-      const time = conf.get('minTimeForLogout', 1); // in minutes
+      const time = getMinutesToLogout();
       shouldLogoutAt = Date.now() + (time * 60 * 1000);
       platform.log(`logging out in ${time} minutes due to activity recognition [${rule.activity}]=${confidence}%`);
       return;
@@ -142,7 +171,7 @@ messages.on('onPeriodic', () => {
 
   if (Date.now() >= shouldLogoutAt) {
     platform.log('logging out due to inactivity');
-    env.project?.logout();
+    logout();
     shouldLogoutAt = null;
   }
 })

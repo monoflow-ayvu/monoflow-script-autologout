@@ -6,12 +6,12 @@
     "display": "form",
     "components": [
       {
-        "label": "Tempo até deslogar",
-        "defaultValue": 1,
+        "label": "Tempo padrão até deslogar",
+        "suffix": "minutos",
         "mask": false,
         "tableView": false,
+        "defaultValue": 1,
         "delimiter": false,
-        "decimalLimit": 0,
         "requireDecimal": false,
         "inputFormat": "plain",
         "truncateMultipleSpaces": false,
@@ -21,8 +21,8 @@
           "max": 300
         },
         "key": "minTimeForLogout",
-        "suffix": "minutos",
         "type": "number",
+        "decimalLimit": 0,
         "input": true
       },
       {
@@ -192,6 +192,79 @@
             },
             "key": "state",
             "type": "select",
+            "input": true
+          }
+        ]
+      },
+      {
+        "label": "Regras especiais",
+        "reorder": false,
+        "addAnotherPosition": "bottom",
+        "layoutFixed": false,
+        "enableRowGroups": false,
+        "initEmpty": true,
+        "tableView": false,
+        "defaultValue": [
+          {
+            "tag": ""
+          }
+        ],
+        "key": "specialRules",
+        "type": "datagrid",
+        "input": true,
+        "components": [
+          {
+            "label": "Tag",
+            "tableView": true,
+            "validate": {
+              "required": true
+            },
+            "key": "tag",
+            "type": "textfield",
+            "input": true
+          },
+          {
+            "label": "Ação",
+            "widget": "choicesjs",
+            "tableView": true,
+            "data": {
+              "values": [
+                {
+                  "label": "Límite de tempo diferente",
+                  "value": "customTimeLimit"
+                },
+                {
+                  "label": "Desativar autologout",
+                  "value": "disableAutoLogout"
+                }
+              ]
+            },
+            "validate": {
+              "required": true
+            },
+            "key": "action",
+            "type": "select",
+            "input": true
+          },
+          {
+            "label": "Minutos",
+            "mask": false,
+            "tableView": false,
+            "defaultValue": 5,
+            "delimiter": false,
+            "requireDecimal": false,
+            "inputFormat": "plain",
+            "truncateMultipleSpaces": false,
+            "validate": {
+              "required": true
+            },
+            "key": "minutes",
+            "conditional": {
+              "show": true,
+              "when": "specialRules.action",
+              "eq": "customTimeLimit"
+            },
+            "type": "number",
             "input": true
           }
         ]
