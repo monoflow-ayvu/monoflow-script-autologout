@@ -66,18 +66,22 @@ class MonoflowIOEvent extends MonoUtils.wk.event.BaseEvent {
   };
 }
 
+function log(...msgs: any[]) {
+  platform.log('[autologout]', ...msgs);
+}
+
 messages.on('onInit', function() {
-  platform.log('autologout script started');
+  log('autologout script started');
 
   if (conf.get('enableActivityLogout', false)) {
-    platform.log('activity logout enabled');
+    log('activity logout enabled');
     MonoUtils.wk.event.subscribe<ActivityRecognitionEvent>('activity-recognition', (ev) => {
       onActivityRecognition(ev.getData()?.data?.activityType, ev.getData()?.data?.confidence);
     });
   }
 
   if (conf.get('enableMonoflowLogout', false)) {
-    platform.log('monoflow logout enabled');
+    log('monoflow logout enabled');
     MonoUtils.wk.event.subscribe<MonoflowIOEvent>('generic', (ev) => {
       const data = ev.getData();
       if (data?.type === 'monoflow-io') {
@@ -97,7 +101,7 @@ function onMonoflowIO(rule: number, status: boolean) {
   }
 
   if (env.data.CURRENT_PAGE === 'Submit') {
-    platform.log('should auto logout but is in submit view');
+    log('should auto logout but is in submit view');
     return;
   }
 
@@ -105,7 +109,7 @@ function onMonoflowIO(rule: number, status: boolean) {
   for (const r of rules) {
     const ruleStatus = r.state === 'enabled' ? true : false;
     if (r.rule === Math.floor(rule) && ruleStatus === status) {
-      platform.log('logging out due to monoflow IO', rule, status);
+      log('logging out due to monoflow IO', rule, status);
       logout();
       return;
     }
@@ -136,22 +140,27 @@ function logout() {
 
 let shouldLogoutAt: number | null = null;
 function onActivityRecognition(activityType: string, confidence: number) {
-  // platform.log(`onActivityRecognition ${activityType}=${confidence}%`);
+  log(`onActivityRecognition ${activityType}=${confidence}%`);
 
   if (!conf.get('enableActivityLogout', false)) {
     return;
   }
 
-  if (!env.project?.currentLogin.maybeCurrent) {
+  if (!env.project?.currentLogin?.maybeCurrent) {
+    log('user is not logged in');
     return;
   }
 
   const rules = conf.get('activities', []);
   for (const rule of rules) {
-    if (rule.activity === activityType && confidence >= rule.confidence && shouldLogoutAt === null) {
-      const time = getMinutesToLogout();
-      shouldLogoutAt = Date.now() + (time * 60 * 1000);
-      platform.log(`logging out in ${time} minutes due to activity recognition [${rule.activity}]=${confidence}%`);
+    if (rule.activity === activityType && confidence >= rule.confidence) {
+      if (shouldLogoutAt === null) {
+        const time = getMinutesToLogout();
+        shouldLogoutAt = Date.now() + (time * 60 * 1000);
+        log(`logging out in ${time} minutes due to activity recognition [${rule.activity}]=${confidence}%`);
+      } else {
+        log(`rule matches but already has another counter running, so waiting for that one to stop first. It'll execute at: ${new Date(shouldLogoutAt).toISOString()}`)
+      }
       return;
     }
   }
@@ -165,12 +174,12 @@ messages.on('onPeriodic', () => {
   if (shouldLogoutAt === null) return;
 
   if (env.data.CURRENT_PAGE === 'Submit') {
-    // platform.log('should auto logout but is in submit view');
+    // log('should auto logout but is in submit view');
     return;
   }
 
   if (Date.now() >= shouldLogoutAt) {
-    platform.log('logging out due to inactivity');
+    log('logging out due to inactivity');
     logout();
     shouldLogoutAt = null;
   }
