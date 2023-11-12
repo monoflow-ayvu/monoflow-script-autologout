@@ -5831,10 +5831,10 @@ mkdirp-classic@^0.5.2, mkdirp-classic@^0.5.3:
   resolved "https://registry.yarnpkg.com/mkdirp-classic/-/mkdirp-classic-0.5.3.tgz#fa10c9115cc6d8865be221ba47ee9bed78601113"
   integrity sha512-gKLcREMhtuZRwRAfqP3RFW+TK4JqApVBtOIftVgjuABpAtpxhPGaDcfvbhNvD0B8iD1oUr/txX35NjcaY6Ns/A==
 
-mobx-keystone@1.7.0:
-  version "1.7.0"
-  resolved "https://registry.yarnpkg.com/mobx-keystone/-/mobx-keystone-1.7.0.tgz#7c5051630dc3e139ebaf36a2f52940babc9ea20c"
-  integrity sha512-gzCIMRrcVgQKoJTqonF5bOOj3RZRUYH3LW3OCAY+B8mvJHgQt4OMylhcEVaFIQ0cAdVKN0iPTC0lpuMVYs2P/Q==
+mobx-keystone@1.7.1:
+  version "1.7.1"
+  resolved "https://registry.yarnpkg.com/mobx-keystone/-/mobx-keystone-1.7.1.tgz#c0829230ef63556174acaad9a40001636fcf7e0d"
+  integrity sha512-9MhQtBbzMJTwDg124JIpMdngj5HYTRtdPLJaSGQd9ixE7ckPj78cx1+dnDaO8PAyr2RFvOiMlV/seE0WhnemKw==
   dependencies:
     fast-deep-equal "^3.1.3"
     ts-toolbelt "^9.6.0"
