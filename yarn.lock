@@ -6018,10 +6018,10 @@ mkdirp-classic@^0.5.2, mkdirp-classic@^0.5.3:
   resolved "https://registry.yarnpkg.com/mkdirp-classic/-/mkdirp-classic-0.5.3.tgz#fa10c9115cc6d8865be221ba47ee9bed78601113"
   integrity sha512-gKLcREMhtuZRwRAfqP3RFW+TK4JqApVBtOIftVgjuABpAtpxhPGaDcfvbhNvD0B8iD1oUr/txX35NjcaY6Ns/A==
 
-mobx-keystone@1.8.0:
-  version "1.8.0"
-  resolved "https://registry.yarnpkg.com/mobx-keystone/-/mobx-keystone-1.8.0.tgz#9474f9e29ebd70fac3e08d7477566a9f926b793c"
-  integrity sha512-Z81O3ICUW3g1ljyMVH7ngVAki94yzL0+FS1poipTGHxRshemPMEyvTdNcKy12S9vv5X7+npDrpTjs5TdPhkhNA==
+mobx-keystone@1.8.1:
+  version "1.8.1"
+  resolved "https://registry.yarnpkg.com/mobx-keystone/-/mobx-keystone-1.8.1.tgz#4ce3eb4016ebac1862542163c81a33632a36db0c"
+  integrity sha512-0aTsFwwVO8TLH3Xi4md5t5oR7YajTB3VCiT0+1N6GHRT9IrOBCTfcbdaMz98BenwAT6AH6EQk1NdTSnbyf5g7Q==
   dependencies:
     fast-deep-equal "^3.1.3"
     ts-toolbelt "^9.6.0"
