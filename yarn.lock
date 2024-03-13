@@ -2774,32 +2774,32 @@
   dependencies:
     debug "^4.1.1"
 
-"@size-limit/file@11.0.3":
-  version "11.0.3"
-  resolved "https://registry.yarnpkg.com/@size-limit/file/-/file-11.0.3.tgz#eec525460a48d803260f5385ee234a1e7e523185"
-  integrity sha512-fuVZG+dZLLMaEi1siHHK5gU8Vfc4pvjZBxrefwZt9gOinbOgGONauEPZYipaE1tYTZPeJo8o9PuJ8Obbub+MLA==
+"@size-limit/file@11.1.0":
+  version "11.1.0"
+  resolved "https://registry.yarnpkg.com/@size-limit/file/-/file-11.1.0.tgz#9fe6497f5782cf4d887439b2ded1daf2ad2da620"
+  integrity sha512-C7Tr9dvw8Jx8If2xyGt0OprB+t03tAf259QJYi4WSl3IRMxH7l8k9qyITa/KCFcmH7tVBduNRSnHAL8Cf90EfQ==
 
-"@size-limit/preset-big-lib@11.0.3":
-  version "11.0.3"
-  resolved "https://registry.yarnpkg.com/@size-limit/preset-big-lib/-/preset-big-lib-11.0.3.tgz#971e6f3941839d731fee640665570943d237e6f1"
-  integrity sha512-nMHhbEMAu4b7YZFKiahaNqtAckY020bq/0Gy4oI38ELL8prsj9tgHJKcO5DwesoUR+GcUF95ZvivPrKveI++bw==
+"@size-limit/preset-big-lib@11.1.0":
+  version "11.1.0"
+  resolved "https://registry.yarnpkg.com/@size-limit/preset-big-lib/-/preset-big-lib-11.1.0.tgz#afdfbec4212417c888b5076c4ede79eb34515a3d"
+  integrity sha512-nZxB94+aGH6mwYds6jLjTYQDGiKm4pFbbSAfFic59Uq0JbGkITe48uBtYkUgYT1/LYHVPQl9K5GjY010o6Eg+Q==
   dependencies:
-    "@size-limit/file" "11.0.3"
-    "@size-limit/time" "11.0.3"
-    "@size-limit/webpack" "11.0.3"
-    size-limit "11.0.3"
+    "@size-limit/file" "11.1.0"
+    "@size-limit/time" "11.1.0"
+    "@size-limit/webpack" "11.1.0"
+    size-limit "11.1.0"
 
-"@size-limit/time@11.0.3":
-  version "11.0.3"
-  resolved "https://registry.yarnpkg.com/@size-limit/time/-/time-11.0.3.tgz#e150ead18e893468caa95c196849d58f68c6f3de"
-  integrity sha512-HBwpOS1gV/IPu24NUnqaxwomG92W//aydrpQQbY7aHy9YCxZpeDyqTeLdQ1vQcb2zqvhGok4oKgladQlPsQhmw==
+"@size-limit/time@11.1.0":
+  version "11.1.0"
+  resolved "https://registry.yarnpkg.com/@size-limit/time/-/time-11.1.0.tgz#0cd94d85a502c937cdb3ec9635f945b3e5a10dc1"
+  integrity sha512-/Ac1CCcbQOiwhTneQ2ItgGMZnMsHU1vfzBtTNKXWjHFf9NekPjvv/9jVzlBXzOGH4IZm30Fpof/7NudgfDbeyw==
   dependencies:
     estimo "^3.0.2"
 
-"@size-limit/webpack@11.0.3":
-  version "11.0.3"
-  resolved "https://registry.yarnpkg.com/@size-limit/webpack/-/webpack-11.0.3.tgz#c3e0df0f3e4fbd985d46f45f052fced37daa9ffa"
-  integrity sha512-yNISeEtCG0FC9uA0RDa/u/BhFN2h6aYDei8BknNpGZkcD6JEA+FKBRMhwcykivyeUJmC6bYVFQMhFDq496P36A==
+"@size-limit/webpack@11.1.0":
+  version "11.1.0"
+  resolved "https://registry.yarnpkg.com/@size-limit/webpack/-/webpack-11.1.0.tgz#955fa23defae08697caa924c11df4e510dd03884"
+  integrity sha512-Tijbk9hgr2fPDz6M7ig7K4AbD8sacEljO+1c0bVVEr0JdbO7fv5dWsjS0lzKt+EM3GiuGPUVPZ4f381t/FzTSw==
   dependencies:
     nanoid "^5.0.6"
     webpack "^5.90.3"
@@ -5875,6 +5875,11 @@ jest@29.7.0:
     import-local "^3.0.2"
     jest-cli "^29.7.0"
 
+jiti@^1.21.0:
+  version "1.21.0"
+  resolved "https://registry.yarnpkg.com/jiti/-/jiti-1.21.0.tgz#7c97f8fe045724e136a397f7340475244156105d"
+  integrity sha512-gFqAIbuKyyso/3G2qhiO2OM6shY6EPP/R0+mkDbyspxKazh8BXDC5FiFsUjlczgdNz/vfra0da2y+aHrusLG/Q==
+
 js-tokens@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/js-tokens/-/js-tokens-4.0.0.tgz#19203fb59991df98e3a287050d4647cdeaf32499"
@@ -7155,6 +7160,19 @@ size-limit@11.0.3:
     bytes-iec "^3.1.1"
     chokidar "^3.6.0"
     globby "^14.0.1"
+    lilconfig "^3.1.1"
+    nanospinner "^1.1.0"
+    picocolors "^1.0.0"
+
+size-limit@11.1.0:
+  version "11.1.0"
+  resolved "https://registry.yarnpkg.com/size-limit/-/size-limit-11.1.0.tgz#f0386fac40bfc26f4d8940e9d4824135e8391691"
+  integrity sha512-HvqVEUDJ3y/XL69pR3vxTavPr6s4S9ScJhHjLEjpctF0Ymgo1StmHgFeQoyQYb/1ip7olkWxJG3wRcZk1hZcPg==
+  dependencies:
+    bytes-iec "^3.1.1"
+    chokidar "^3.6.0"
+    globby "^14.0.1"
+    jiti "^1.21.0"
     lilconfig "^3.1.1"
     nanospinner "^1.1.0"
     picocolors "^1.0.0"
