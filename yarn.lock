@@ -2774,32 +2774,32 @@
   dependencies:
     debug "^4.1.1"
 
-"@size-limit/file@11.1.0":
-  version "11.1.0"
-  resolved "https://registry.yarnpkg.com/@size-limit/file/-/file-11.1.0.tgz#9fe6497f5782cf4d887439b2ded1daf2ad2da620"
-  integrity sha512-C7Tr9dvw8Jx8If2xyGt0OprB+t03tAf259QJYi4WSl3IRMxH7l8k9qyITa/KCFcmH7tVBduNRSnHAL8Cf90EfQ==
+"@size-limit/file@11.1.1":
+  version "11.1.1"
+  resolved "https://registry.yarnpkg.com/@size-limit/file/-/file-11.1.1.tgz#355dad87081545960cae735ace97be8b9a20e900"
+  integrity sha512-c4XXp2CLvfx2RfzAqIAlxV6OWAQSVquLMNKKD6x9urJD7knjnTesPkbMcf3SkQbjCY4PlLL6kYhaO9drCWGM6g==
 
-"@size-limit/preset-big-lib@11.1.0":
-  version "11.1.0"
-  resolved "https://registry.yarnpkg.com/@size-limit/preset-big-lib/-/preset-big-lib-11.1.0.tgz#afdfbec4212417c888b5076c4ede79eb34515a3d"
-  integrity sha512-nZxB94+aGH6mwYds6jLjTYQDGiKm4pFbbSAfFic59Uq0JbGkITe48uBtYkUgYT1/LYHVPQl9K5GjY010o6Eg+Q==
+"@size-limit/preset-big-lib@11.1.1":
+  version "11.1.1"
+  resolved "https://registry.yarnpkg.com/@size-limit/preset-big-lib/-/preset-big-lib-11.1.1.tgz#388b7cbf69e354834e7685466f597c184de2ac27"
+  integrity sha512-AoHaRSEZrBbU+52e1/v3Dke/2ZsNP/4h0yNi6GD23QBetV9mc0GPFEJoKXNNU9guIQ8PX/2aTP8XdxEtMvHQOw==
   dependencies:
-    "@size-limit/file" "11.1.0"
-    "@size-limit/time" "11.1.0"
-    "@size-limit/webpack" "11.1.0"
-    size-limit "11.1.0"
+    "@size-limit/file" "11.1.1"
+    "@size-limit/time" "11.1.1"
+    "@size-limit/webpack" "11.1.1"
+    size-limit "11.1.1"
 
-"@size-limit/time@11.1.0":
-  version "11.1.0"
-  resolved "https://registry.yarnpkg.com/@size-limit/time/-/time-11.1.0.tgz#0cd94d85a502c937cdb3ec9635f945b3e5a10dc1"
-  integrity sha512-/Ac1CCcbQOiwhTneQ2ItgGMZnMsHU1vfzBtTNKXWjHFf9NekPjvv/9jVzlBXzOGH4IZm30Fpof/7NudgfDbeyw==
+"@size-limit/time@11.1.1":
+  version "11.1.1"
+  resolved "https://registry.yarnpkg.com/@size-limit/time/-/time-11.1.1.tgz#59a93b18164cfc4c7316603fcb31d9d27cec8cb7"
+  integrity sha512-98NFOo4ZxNC2r1ctsFz7OO2Sf4ly47o93KpzNoAu1jEjgorbiVZAjOjg9n7OiVoSHi71NXl89p/r0USGT8Jx8A==
   dependencies:
     estimo "^3.0.2"
 
-"@size-limit/webpack@11.1.0":
-  version "11.1.0"
-  resolved "https://registry.yarnpkg.com/@size-limit/webpack/-/webpack-11.1.0.tgz#955fa23defae08697caa924c11df4e510dd03884"
-  integrity sha512-Tijbk9hgr2fPDz6M7ig7K4AbD8sacEljO+1c0bVVEr0JdbO7fv5dWsjS0lzKt+EM3GiuGPUVPZ4f381t/FzTSw==
+"@size-limit/webpack@11.1.1":
+  version "11.1.1"
+  resolved "https://registry.yarnpkg.com/@size-limit/webpack/-/webpack-11.1.1.tgz#c011633141b6113ae17769f63f9a49c2c9f7f561"
+  integrity sha512-fjVKrUkNro6ooGPjce1SWgo3KS+Cgp1rAf73YhK1YP15s0UgxQYQru319b4R/t5xsRru2GkvAVI/xJLnv5kX0A==
   dependencies:
     nanoid "^5.0.6"
     webpack "^5.90.3"
@@ -7156,6 +7156,19 @@ size-limit@11.1.0:
   version "11.1.0"
   resolved "https://registry.yarnpkg.com/size-limit/-/size-limit-11.1.0.tgz#f0386fac40bfc26f4d8940e9d4824135e8391691"
   integrity sha512-HvqVEUDJ3y/XL69pR3vxTavPr6s4S9ScJhHjLEjpctF0Ymgo1StmHgFeQoyQYb/1ip7olkWxJG3wRcZk1hZcPg==
+  dependencies:
+    bytes-iec "^3.1.1"
+    chokidar "^3.6.0"
+    globby "^14.0.1"
+    jiti "^1.21.0"
+    lilconfig "^3.1.1"
+    nanospinner "^1.1.0"
+    picocolors "^1.0.0"
+
+size-limit@11.1.1:
+  version "11.1.1"
+  resolved "https://registry.yarnpkg.com/size-limit/-/size-limit-11.1.1.tgz#13235ba218ca9d273e1b64d7ecd9195e37de0b2f"
+  integrity sha512-0d06gwp+hBuhNQyAyewalfMLhGCnjt15MyDxqouzxN4+85vjAUdRKSNuR1kcyxaS9Ml98q120U0PgRPocPJWiw==
   dependencies:
     bytes-iec "^3.1.1"
     chokidar "^3.6.0"
