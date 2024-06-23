@@ -6035,15 +6035,15 @@ mkdirp-classic@^0.5.2, mkdirp-classic@^0.5.3:
   resolved "https://registry.yarnpkg.com/mkdirp-classic/-/mkdirp-classic-0.5.3.tgz#fa10c9115cc6d8865be221ba47ee9bed78601113"
   integrity sha512-gKLcREMhtuZRwRAfqP3RFW+TK4JqApVBtOIftVgjuABpAtpxhPGaDcfvbhNvD0B8iD1oUr/txX35NjcaY6Ns/A==
 
-mobx-keystone@1.10.1:
-  version "1.10.1"
-  resolved "https://registry.yarnpkg.com/mobx-keystone/-/mobx-keystone-1.10.1.tgz#61d57fbc4942c0108d431e6ef88dfe0bcf113c0a"
-  integrity sha512-IRTU462+FMUA4jbS+gkIVP4/72KGLZ6rgCD7gGDel+J7h2BemJgQjk3HT5R8+eGEq1UWcgr6LRv1ww7rdFifVA==
+mobx-keystone@1.10.2:
+  version "1.10.2"
+  resolved "https://registry.yarnpkg.com/mobx-keystone/-/mobx-keystone-1.10.2.tgz#9702b94df99868e395de42f61189b46b7fcec3f3"
+  integrity sha512-UjvTITj3s/vBgbBu/G6BS+bdKvQACOvZ8YgE9Msmb3QqRbCIApCatoDuWwFepnvZG8BzKyqwGUc6WCpfT0hfQQ==
   dependencies:
     fast-deep-equal "^3.1.3"
     nanoid "^3.3.7"
     ts-toolbelt "^9.6.0"
-    tslib "^2.6.2"
+    tslib "^2.6.3"
 
 mobx@6.12.4:
   version "6.12.4"
@@ -7507,7 +7507,7 @@ tslib@^1.9.0:
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.14.1.tgz#cf2d38bdc34a134bcaf1091c41f6619e2f672d00"
   integrity sha512-Xni35NKzjgMrwevysHTCArtLDpPvye8zV/0E4EyYn43P7/7qvQwPh9BGkHewbMulVntbigmcT7rdX3BNo9wRJg==
 
-tslib@^2.0.1, tslib@^2.6.2:
+tslib@^2.0.1:
   version "2.6.2"
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.6.2.tgz#703ac29425e7b37cd6fd456e92404d46d1f3e4ae"
   integrity sha512-AEYxH93jGFPn/a2iVAwW87VuUIkR1FVUKB77NwMF7nBTDkDrrT/Hpt/IrCJ0QXhW27jTBDcf5ZY7w6RiqTMw2Q==
@@ -7516,6 +7516,11 @@ tslib@^2.1.0:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.3.0.tgz#803b8cdab3e12ba581a4ca41c8839bbb0dacb09e"
   integrity sha512-N82ooyxVNm6h1riLCoyS9e3fuJ3AMG2zIZs2Gd1ATcSFjSA23Q0fzjjZeh0jbJvWVDZ0cJT8yaNNaaXHzueNjg==
+
+tslib@^2.6.3:
+  version "2.6.3"
+  resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.6.3.tgz#0438f810ad7a9edcde7a241c3d80db693c8cbfe0"
+  integrity sha512-xNvxJEOUiWPGhUuUdQgAJPKOOJfGnIyKySOc09XkKsgdUV/3E2zvwZYdejjmRgPCgcym1juLH3226yA7sEFJKQ==
 
 tunnel-agent@^0.6.0:
   version "0.6.0"
